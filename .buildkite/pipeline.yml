@@ -11,16 +11,21 @@ agents:
 
 steps:
   - label: ":package: Install Dependencies"
+    key: flutter-pub-get
     command: |
       source ./setup_flutter.sh
       flutter pub get
 
   - label: ":test_tube: Run Tests"
+    key: flutter-test
+    depends_on: flutter-pub-get
     command: |
       source ./setup_flutter.sh
       flutter test
 
   - label: ":wrench: Build macOS App"
+    key: flutter-build
+    depends_on: flutter-test
     command: |
       source ./setup_flutter.sh
       flutter build macos
