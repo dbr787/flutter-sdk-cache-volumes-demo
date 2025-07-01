@@ -8,10 +8,13 @@ fi
 
 FLUTTER_ZIP_URL="https://storage.googleapis.com/flutter_infra_release/releases/stable/macos/flutter_macos_arm64_${FLUTTER_VERSION}-stable.zip"
 FLUTTER_CACHE_DIR="flutter"
-VERSION_FILE="$FLUTTER_CACHE_DIR/flutter/VERSION"
+FLUTTER_SDK_PATH="$PWD/$FLUTTER_CACHE_DIR/flutter"
+VERSION_FILE="$FLUTTER_SDK_PATH/VERSION"
 TMP_DIR="$(mktemp -d)"
 
-if [ -x "$FLUTTER_CACHE_DIR/flutter/bin/flutter" ] && grep -q "$FLUTTER_VERSION" "$VERSION_FILE"; then
+export PATH="$FLUTTER_SDK_PATH/bin:$PATH"
+
+if [ -x "$FLUTTER_SDK_PATH/bin/flutter" ] && grep -q "$FLUTTER_VERSION" "$VERSION_FILE"; then
   echo "✅ Flutter $FLUTTER_VERSION is already available in cache"
 else
   echo "⬇️ Installing Flutter $FLUTTER_VERSION..."
@@ -20,7 +23,5 @@ else
   rm -rf "$FLUTTER_CACHE_DIR/flutter"
   mv "$TMP_DIR/flutter" "$FLUTTER_CACHE_DIR/"
 fi
-
-export PATH="$PWD/$FLUTTER_CACHE_DIR/flutter/bin:$PATH"
 
 flutter --version
