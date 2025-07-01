@@ -1,0 +1,17 @@
+env:
+  FLUTTER_VERSION: "3.32.5"
+
+cache:
+  paths:
+    - "flutter"
+  size: "20g"
+
+agents:
+  queue: "macos"
+
+steps:
+  - label: ":flutter: Run Tests"
+    command: |
+      ./setup_flutter.sh
+      flutter pub get
+      flutter test
