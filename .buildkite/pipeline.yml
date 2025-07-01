@@ -3,15 +3,24 @@ env:
 
 cache:
   paths:
-    - "flutter"
+    - "flutter-take-two"
   size: "20g"
 
 agents:
   queue: "macos"
 
 steps:
-  - label: ":flutter: Run Tests"
+  - label: ":package: Install Dependencies"
     command: |
       source ./setup_flutter.sh
       flutter pub get
+
+  - label: ":test_tube: Run Tests"
+    command: |
+      source ./setup_flutter.sh
       flutter test
+
+  - label: ":wrench: Build macOS App"
+    command: |
+      source ./setup_flutter.sh
+      flutter build macos
