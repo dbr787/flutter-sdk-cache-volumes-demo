@@ -7,7 +7,7 @@ if [[ -z "${FLUTTER_VERSION:-}" ]]; then
 fi
 
 FLUTTER_ZIP_URL="https://storage.googleapis.com/flutter_infra_release/releases/stable/macos/flutter_macos_arm64_${FLUTTER_VERSION}-stable.zip"
-FLUTTER_CACHE_DIR="flutter"
+FLUTTER_CACHE_DIR="flutter-take-two"
 FLUTTER_SDK_PATH="$PWD/$FLUTTER_CACHE_DIR/flutter"
 VERSION_FILE="$FLUTTER_SDK_PATH/VERSION"
 TMP_DIR="$(mktemp -d)"
