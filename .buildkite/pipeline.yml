@@ -12,6 +12,6 @@ agents:
 steps:
   - label: ":flutter: Run Tests"
     command: |
-      ./setup_flutter.sh
+      source ./setup_flutter.sh
       flutter pub get
       flutter test
