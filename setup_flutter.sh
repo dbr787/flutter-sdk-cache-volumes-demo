@@ -18,10 +18,30 @@ if [ -x "$FLUTTER_SDK_PATH/bin/flutter" ] && grep -q "$FLUTTER_VERSION" "$VERSIO
   echo "✅ Flutter $FLUTTER_VERSION is already available in cache"
 else
   echo "⬇️ Installing Flutter $FLUTTER_VERSION..."
+
+  echo "📥 Downloading..."
+  start=$(date +%s)
   curl -sSL "$FLUTTER_ZIP_URL" -o "$TMP_DIR/flutter_sdk.zip"
+  end=$(date +%s)
+  echo "⏱ Download took $((end - start)) seconds"
+
+  echo "📦 Unzipping..."
+  start=$(date +%s)
   unzip -q "$TMP_DIR/flutter_sdk.zip" -d "$TMP_DIR"
+  end=$(date +%s)
+  echo "⏱ Unzip took $((end - start)) seconds"
+
+  echo "🧹 Removing old SDK..."
+  start=$(date +%s)
   rm -rf "$FLUTTER_CACHE_DIR/flutter"
+  end=$(date +%s)
+  echo "⏱ Remove took $((end - start)) seconds"
+
+  echo "🚚 Moving SDK to cache directory..."
+  start=$(date +%s)
   mv "$TMP_DIR/flutter" "$FLUTTER_CACHE_DIR/"
+  end=$(date +%s)
+  echo "⏱ Move took $((end - start)) seconds"
 fi
 
 flutter --version
