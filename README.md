@@ -16,6 +16,14 @@ This repository demonstrates how to:
 - Each step sources the setup script, ensuring the correct Flutter version is available
 - The `simple-flutter/` directory is mounted as a cache volume, preserving the SDK between builds
 
+### First Build (No Cache)
+
+![First Build](<CleanShot 2025-07-02 at 14.26.28.png>)
+
+### Second Build (With Cache)
+
+![Second Build](<CleanShot 2025-07-02 at 14.27.20.png>)
+
 ## Project Structure
 
 ```
