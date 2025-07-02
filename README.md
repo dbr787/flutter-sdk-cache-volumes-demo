@@ -18,18 +18,22 @@ This repository demonstrates how to:
 
 ### First Build (No Cache)
 
-![First Build](<CleanShot 2025-07-02 at 14.26.28.png>)
+![First Build](assets/screenshots/first-build.png)
 
 ### Second Build (With Cache)
 
-![Second Build](<CleanShot 2025-07-02 at 14.27.20.png>)
+![Second Build](assets/screenshots/second-build.png)
 
 ## Project Structure
 
 ```
 flutter-sdk-cache-volumes-demo/
 ├── .buildkite/
-│ └── pipeline.yml
+│   └── pipeline.yml
+├── assets/
+│   └── screenshots/
+│       ├── first-build.png
+│       └── second-build.png
 ├── setup_flutter.sh
 ├── README.md
 ```
