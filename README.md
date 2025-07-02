@@ -2,40 +2,42 @@
 
 This repository demonstrates how to:
 
-- Install the Flutter SDK from the official zip archive
-- Cache the SDK between builds using Buildkite macOS cache volumes
-- Pin to a specific Flutter version
-- Handle ephemeral agent environments gracefully
+- Download and install a pinned version of the Flutter SDK
+- Cache the SDK across builds using [Buildkite Cache Volumes](https://buildkite.com/docs/pipelines/hosted-agents/cache-volumes)
+- Handle ephemeral agents and cold-start scenarios gracefully
 
 ## How It Works
 
-- `setup_flutter.sh` installs the Flutter SDK if not already cached
-- `.buildkite/pipeline.yml` defines the CI pipeline
-- The `flutter/` directory is used as a cache volume mount point
-- The pipeline sets `FLUTTER_VERSION` as an environment variable
-
-This pattern avoids downloading and extracting the SDK on every build, while ensuring builds remain reproducible and resilient to cache misses.
+- `setup_flutter.sh` installs the specified Flutter SDK version if it's not already cached, and adds it to `PATH`
+- `.buildkite/pipeline.yml` defines three sequential steps:
+  1. Install dependencies
+  2. Run tests
+  3. Build a macOS app
+- Each step sources the setup script, ensuring the correct Flutter version is available
+- The `simple-flutter/` directory is mounted as a cache volume, preserving the SDK between builds
 
 ## Project Structure
 
 ```
 flutter-sdk-cache-volumes-demo/
 ├── .buildkite/
-│   └── pipeline.yml
+│ └── pipeline.yml
 ├── setup_flutter.sh
-├── pubspec.yaml              # (optional) Flutter test project
-├── lib/
-│   └── main.dart             # (optional) example app entry
-└── README.md
+├── README.md
 ```
 
 ## Requirements
 
 - Buildkite macOS hosted agents
-- Cache volumes enabled for your cluster
 
 ## Getting Started
 
 1. Fork or clone this repository
 2. Connect it to a Buildkite pipeline
-3. Run a build and watch the Flutter SDK cache kick in 🚀
+3. Trigger a build — the first run will download the SDK, and subsequent runs will reuse it from cache
+
+## Notes
+
+- The Flutter version is controlled via the `FLUTTER_VERSION` environment variable in the pipeline file
+- The script validates the version and skips reinstallation if the correct version is already cached
+- This pattern helps reduce build times and avoid unnecessary downloads
